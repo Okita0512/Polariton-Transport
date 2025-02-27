@@ -1,0 +1,6 @@
+/gpfs/fs2/scratch/wying3/others/Polariton_Transport/lambda_dep/12meV/savedata.py:10: RuntimeWarning: overflow encountered in exp
+  return 1 / (np.exp(beta * x) - 1)
+
+real	92m38.900s
+user	92m33.066s
+sys	0m0.186s

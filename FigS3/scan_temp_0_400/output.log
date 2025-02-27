@@ -1,0 +1,8 @@
+/gpfs/fs2/scratch/wying3/others/Polariton_Transport/lambda_dep/scan_temp_0_400/temp-dep.py:9: RuntimeWarning: divide by zero encountered in double_scalars
+  beta = au_to_K / T
+/gpfs/fs2/scratch/wying3/others/Polariton_Transport/lambda_dep/scan_temp_0_400/temp-dep.py:10: RuntimeWarning: overflow encountered in exp
+  return 1 / (np.exp(beta * x) - 1)
+
+real	183m52.546s
+user	183m48.200s
+sys	0m0.108s
