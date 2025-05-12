@@ -91,10 +91,10 @@ ax2.axes.yaxis.set_ticklabels([])
 plt.tick_params(which = 'both', direction = 'in')
 plt.ylim(1.55, 2.1)
 
-ax.set_xlabel(r'$k$', size = 32)
+ax.set_xlabel(r'$k$ ($2\pi / L$)', size = 32)
 ax.set_ylabel(r'$\omega_\mathrm{c}$ (eV)', size = 32)
 # ax.legend()
 
 
 
-plt.savefig("Fig_4.pdf", bbox_inches='tight')
+plt.savefig("Fig_S6.pdf", bbox_inches='tight')
