@@ -138,7 +138,7 @@ ax2.axes.yaxis.set_ticklabels([])
 plt.tick_params(which = 'both', direction = 'in')
 plt.ylim(1.76, 2.2)
 
-ax.set_xlabel(r'$k$', size = 32)
+ax.set_xlabel(r'$k$ ($2\pi / L$)', size = 32)
 ax.set_ylabel(r'Energy $(\mathrm{eV})$', size = 32)
 # ax.legend(loc = 'upper center', frameon = False, prop = font_legends)
 
