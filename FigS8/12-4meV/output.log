@@ -1,0 +1,7 @@
+slurmstepd: error: task/cgroup: unable to add task[pid=5589] to memory cg '(null)'
+/gpfs/fs2/scratch/wying3/others/Polariton_Transport/lambda_dep/cutoff-dep-lam=12meV/6-2meV/savedata.py:10: RuntimeWarning: overflow encountered in exp
+  return 1 / (np.exp(beta * x) - 1)
+
+real	94m15.149s
+user	93m46.532s
+sys	0m21.406s
