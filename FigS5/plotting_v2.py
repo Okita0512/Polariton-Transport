@@ -64,6 +64,7 @@ Nexc = 10001
 Ncav = 283
 L = 0.04 * mm2au                                                            # box lenght
 dk = 2 * np.pi / L                                                          # k-space unit length
+dk0 = dk * (40 / (2 * np.pi))                                                # convert to micron^-1
 k_par = np.linspace(- (Nexc - 1) * dk / 2, (Nexc - 1) * dk / 2, Nexc)       # discretizing the whole band
 k_plot = np.linspace(- (Ncav - 1) * dk / 2, (Ncav - 1) * dk / 2, Ncav)      # discretizing the polaritons
 Omega_R = 0.12 / conv                                                       # value of \sqrt(N) gc
@@ -81,30 +82,30 @@ color11 = '#1868B2'
 color22 = '#C5272D'
 color33 = '#018A67'
 
-plt.plot(k_par / dk, omega_LP(wc, k_par) * conv, '-', linewidth = lw / 3, color = 'k') #, label = r"No Bath")
-plt.plot(k_par / dk, omega_UP(wc, k_par) * conv, '-', linewidth = lw / 3, color = 'k') #, label = r"No Bath")
+plt.plot(k_par / dk0, omega_LP(wc, k_par) * conv, '-', linewidth = lw / 3, color = 'k') #, label = r"No Bath")
+plt.plot(k_par / dk0, omega_UP(wc, k_par) * conv, '-', linewidth = lw / 3, color = 'k') #, label = r"No Bath")
 
 data00 = np.loadtxt("./band_struct_LP_lambda=6meV_1.txt", dtype = float)
 data11 = np.loadtxt("./band_struct_LP_lambda=12meV_1.txt", dtype = float)
 data22 = np.loadtxt("./band_struct_LP_lambda=24meV_1.txt", dtype = float)
 
-plt.plot(data00[:, 0] / dk, data00[:, 1] * conv, '-', linewidth = lw, color = color11, alpha = .7)
-plt.plot(data11[:, 0] / dk, data11[:, 1] * conv, '-', linewidth = lw, color = color22, alpha = .7)
-plt.plot(data22[:, 0] / dk, data22[:, 1] * conv, '-', linewidth = lw, color = color33, alpha = .7)
+plt.plot(data00[:, 0] / dk0, data00[:, 1] * conv, '-', linewidth = lw, color = color11, alpha = .7)
+plt.plot(data11[:, 0] / dk0, data11[:, 1] * conv, '-', linewidth = lw, color = color22, alpha = .7)
+plt.plot(data22[:, 0] / dk0, data22[:, 1] * conv, '-', linewidth = lw, color = color33, alpha = .7)
 
-plt.plot(data00[:, 0] / dk, data00[:, 2] * conv, '-', linewidth = lw, color = color11, alpha = .7) #, label = r"$\lambda$ = 6 meV")
-plt.plot(data11[:, 0] / dk, data11[:, 2] * conv, '-', linewidth = lw, color = color22, alpha = .7)# , label = r"$\lambda$ = 12 meV")
-plt.plot(data22[:, 0] / dk, data22[:, 2] * conv, '-', linewidth = lw, color = color33, alpha = .7)# , label = r"$\lambda$ = 24 meV")
+plt.plot(data00[:, 0] / dk0, data00[:, 2] * conv, '-', linewidth = lw, color = color11, alpha = .7) #, label = r"$\lambda$ = 6 meV")
+plt.plot(data11[:, 0] / dk0, data11[:, 2] * conv, '-', linewidth = lw, color = color22, alpha = .7)# , label = r"$\lambda$ = 12 meV")
+plt.plot(data22[:, 0] / dk0, data22[:, 2] * conv, '-', linewidth = lw, color = color33, alpha = .7)# , label = r"$\lambda$ = 24 meV")
 
-plt.plot(k_par / dk, wk(wc, k_par) * conv, '--', linewidth = 2.0, color = 'k', alpha = .4)
-plt.hlines([1.96], -75, 75, linestyles=  ['--'], linewidth = 2.0, color = 'k', alpha = .4)
+plt.plot(k_par / dk0, wk(wc, k_par) * conv, '--', linewidth = 2.0, color = 'k', alpha = .4)
+plt.hlines([1.96], -12, 12, linestyles=  ['--'], linewidth = 2.0, color = 'k', alpha = .4)
 
 # ==============================================================================================
 
 # RHS y-axis
 ax = plt.gca()
-x_major_locator = MultipleLocator(25)
-x_minor_locator = MultipleLocator(5)
+x_major_locator = MultipleLocator(5)
+x_minor_locator = MultipleLocator(1)
 y_major_locator = MultipleLocator(0.1)
 y_minor_locator = MultipleLocator(0.02)
 ax.xaxis.set_major_locator(x_major_locator)
@@ -120,7 +121,7 @@ y1_label = ax.get_yticklabels()
 [y1_label_temp.set_fontname('Times New Roman') for y1_label_temp in y1_label]
 
 plt.tick_params(which = 'both', direction = 'in', labelsize = 30)
-plt.xlim(-75, 75)
+plt.xlim(-12, 12)
 plt.ylim(1.76, 2.2)
 
 # RHS y-axis
@@ -134,7 +135,7 @@ ax2.axes.yaxis.set_ticklabels([])
 plt.tick_params(which = 'both', direction = 'in')
 plt.ylim(1.76, 2.2)
 
-ax.set_xlabel(r'$k$ ($2\pi / L$)', size = 32)
+ax.set_xlabel(r'$k_\parallel$ ($\mu$m$^{-1}$)', size = 32)
 ax.set_ylabel(r'Energy $(\mathrm{eV})$', size = 32)
 # ax.legend(loc = 'upper center', frameon = False, prop = font_legends)
 
@@ -208,30 +209,30 @@ color11 = '#1868B2'
 color22 = '#C5272D'
 color33 = '#018A67'
 
-plt.plot(k_par / dk, omega_LP(wc, k_par) * conv, '-', linewidth = lw / 3, color = 'k') #, label = r"No Bath")
-plt.plot(k_par / dk, omega_UP(wc, k_par) * conv, '-', linewidth = lw / 3, color = 'k') #, label = r"No Bath")
+plt.plot(k_par / dk0, omega_LP(wc, k_par) * conv, '-', linewidth = lw / 3, color = 'k') #, label = r"No Bath")
+plt.plot(k_par / dk0, omega_UP(wc, k_par) * conv, '-', linewidth = lw / 3, color = 'k') #, label = r"No Bath")
 
 data00 = np.loadtxt("./band_struct_LP_lambda=6meV_2.txt", dtype = float)
 data11 = np.loadtxt("./band_struct_LP_lambda=12meV_2.txt", dtype = float)
 data22 = np.loadtxt("./band_struct_LP_lambda=24meV_2.txt", dtype = float)
 
-plt.plot(data00[:, 0] / dk, data00[:, 1] * conv, '-', linewidth = lw, color = color11, alpha = .7)
-plt.plot(data11[:, 0] / dk, data11[:, 1] * conv, '-', linewidth = lw, color = color22, alpha = .7)
-plt.plot(data22[:, 0] / dk, data22[:, 1] * conv, '-', linewidth = lw, color = color33, alpha = .7)
+plt.plot(data00[:, 0] / dk0, data00[:, 1] * conv, '-', linewidth = lw, color = color11, alpha = .7)
+plt.plot(data11[:, 0] / dk0, data11[:, 1] * conv, '-', linewidth = lw, color = color22, alpha = .7)
+plt.plot(data22[:, 0] / dk0, data22[:, 1] * conv, '-', linewidth = lw, color = color33, alpha = .7)
 
-plt.plot(data00[:, 0] / dk, data00[:, 2] * conv, '-', linewidth = lw, color = color11, alpha = .7) #, label = r"$\lambda$ = 6 meV")
-plt.plot(data11[:, 0] / dk, data11[:, 2] * conv, '-', linewidth = lw, color = color22, alpha = .7)# , label = r"$\lambda$ = 12 meV")
-plt.plot(data22[:, 0] / dk, data22[:, 2] * conv, '-', linewidth = lw, color = color33, alpha = .7)# , label = r"$\lambda$ = 24 meV")
+plt.plot(data00[:, 0] / dk0, data00[:, 2] * conv, '-', linewidth = lw, color = color11, alpha = .7) #, label = r"$\lambda$ = 6 meV")
+plt.plot(data11[:, 0] / dk0, data11[:, 2] * conv, '-', linewidth = lw, color = color22, alpha = .7)# , label = r"$\lambda$ = 12 meV")
+plt.plot(data22[:, 0] / dk0, data22[:, 2] * conv, '-', linewidth = lw, color = color33, alpha = .7)# , label = r"$\lambda$ = 24 meV")
 
-plt.plot(k_par / dk, wk(wc, k_par) * conv, '--', linewidth = 2.0, color = 'k', alpha = .4)
-plt.hlines([1.96], -75, 75, linestyles=  ['--'], linewidth = 2.0, color = 'k', alpha = .4)
+plt.plot(k_par / dk0, wk(wc, k_par) * conv, '--', linewidth = 2.0, color = 'k', alpha = .4)
+plt.hlines([1.96], -12, 12, linestyles=  ['--'], linewidth = 2.0, color = 'k', alpha = .4)
 
 # ==============================================================================================
 
 # RHS y-axis
 ax = plt.gca()
-x_major_locator = MultipleLocator(25)
-x_minor_locator = MultipleLocator(5)
+x_major_locator = MultipleLocator(5)
+x_minor_locator = MultipleLocator(1)
 y_major_locator = MultipleLocator(0.1)
 y_minor_locator = MultipleLocator(0.02)
 ax.xaxis.set_major_locator(x_major_locator)
@@ -247,7 +248,7 @@ y1_label = ax.get_yticklabels()
 [y1_label_temp.set_fontname('Times New Roman') for y1_label_temp in y1_label]
 
 plt.tick_params(which = 'both', direction = 'in', labelsize = 30)
-plt.xlim(-75, 75)
+plt.xlim(-12, 12)
 plt.ylim(1.76, 2.2)
 
 # RHS y-axis
@@ -261,7 +262,7 @@ ax2.axes.yaxis.set_ticklabels([])
 plt.tick_params(which = 'both', direction = 'in')
 plt.ylim(1.76, 2.2)
 
-ax.set_xlabel(r'$k$ ($2\pi / L$)', size = 32)
+ax.set_xlabel(r'$k_\parallel$ ($\mu$m$^{-1}$)', size = 32)
 ax.set_ylabel(r'Energy $(\mathrm{eV})$', size = 32)
 # ax.legend(loc = 'upper center', frameon = False, prop = font_legends)
 
@@ -335,30 +336,30 @@ color11 = '#1868B2'
 color22 = '#C5272D'
 color33 = '#018A67'
 
-plt.plot(k_par / dk, omega_LP(wc, k_par) * conv, '-', linewidth = lw / 3, color = 'k') #, label = r"No Bath")
-plt.plot(k_par / dk, omega_UP(wc, k_par) * conv, '-', linewidth = lw / 3, color = 'k') #, label = r"No Bath")
+plt.plot(k_par / dk0, omega_LP(wc, k_par) * conv, '-', linewidth = lw / 3, color = 'k') #, label = r"No Bath")
+plt.plot(k_par / dk0, omega_UP(wc, k_par) * conv, '-', linewidth = lw / 3, color = 'k') #, label = r"No Bath")
 
 data00 = np.loadtxt("./band_struct_LP_lambda=6meV_3.txt", dtype = float)
 data11 = np.loadtxt("./band_struct_LP_lambda=12meV_3.txt", dtype = float)
 data22 = np.loadtxt("./band_struct_LP_lambda=24meV_3.txt", dtype = float)
 
-plt.plot(data00[:, 0] / dk, data00[:, 1] * conv, '-', linewidth = lw, color = color11, alpha = .7)
-plt.plot(data11[:, 0] / dk, data11[:, 1] * conv, '-', linewidth = lw, color = color22, alpha = .7)
-plt.plot(data22[:, 0] / dk, data22[:, 1] * conv, '-', linewidth = lw, color = color33, alpha = .7)
+plt.plot(data00[:, 0] / dk0, data00[:, 1] * conv, '-', linewidth = lw, color = color11, alpha = .7)
+plt.plot(data11[:, 0] / dk0, data11[:, 1] * conv, '-', linewidth = lw, color = color22, alpha = .7)
+plt.plot(data22[:, 0] / dk0, data22[:, 1] * conv, '-', linewidth = lw, color = color33, alpha = .7)
 
-plt.plot(data00[:, 0] / dk, data00[:, 2] * conv, '-', linewidth = lw, color = color11, alpha = .7) #, label = r"$\lambda$ = 6 meV")
-plt.plot(data11[:, 0] / dk, data11[:, 2] * conv, '-', linewidth = lw, color = color22, alpha = .7)# , label = r"$\lambda$ = 12 meV")
-plt.plot(data22[:, 0] / dk, data22[:, 2] * conv, '-', linewidth = lw, color = color33, alpha = .7)# , label = r"$\lambda$ = 24 meV")
+plt.plot(data00[:, 0] / dk0, data00[:, 2] * conv, '-', linewidth = lw, color = color11, alpha = .7) #, label = r"$\lambda$ = 6 meV")
+plt.plot(data11[:, 0] / dk0, data11[:, 2] * conv, '-', linewidth = lw, color = color22, alpha = .7)# , label = r"$\lambda$ = 12 meV")
+plt.plot(data22[:, 0] / dk0, data22[:, 2] * conv, '-', linewidth = lw, color = color33, alpha = .7)# , label = r"$\lambda$ = 24 meV")
 
-plt.plot(k_par / dk, wk(wc, k_par) * conv, '--', linewidth = 2.0, color = 'k', alpha = .4)
-plt.hlines([1.96], -75, 75, linestyles= ['--'], linewidth = 2.0, color = 'k', alpha = .4)
+plt.plot(k_par / dk0, wk(wc, k_par) * conv, '--', linewidth = 2.0, color = 'k', alpha = .4)
+plt.hlines([1.96], -12, 12, linestyles= ['--'], linewidth = 2.0, color = 'k', alpha = .4)
 
 # ==============================================================================================
 
 # RHS y-axis
 ax = plt.gca()
-x_major_locator = MultipleLocator(25)
-x_minor_locator = MultipleLocator(5)
+x_major_locator = MultipleLocator(5)
+x_minor_locator = MultipleLocator(1)
 y_major_locator = MultipleLocator(0.1)
 y_minor_locator = MultipleLocator(0.02)
 ax.xaxis.set_major_locator(x_major_locator)
@@ -374,7 +375,7 @@ y1_label = ax.get_yticklabels()
 [y1_label_temp.set_fontname('Times New Roman') for y1_label_temp in y1_label]
 
 plt.tick_params(which = 'both', direction = 'in', labelsize = 30)
-plt.xlim(-75, 75)
+plt.xlim(-12, 12)
 plt.ylim(1.7, 2.2)
 
 # RHS y-axis
@@ -388,7 +389,7 @@ ax2.axes.yaxis.set_ticklabels([])
 plt.tick_params(which = 'both', direction = 'in')
 plt.ylim(1.7, 2.2)
 
-ax.set_xlabel(r'$k$ ($2\pi / L$)', size = 32)
+ax.set_xlabel(r'$k_\parallel$ ($\mu$m$^{-1}$)', size = 32)
 ax.set_ylabel(r'Energy $(\mathrm{eV})$', size = 32)
 # ax.legend(loc = 'upper center', frameon = False, prop = font_legends)
 
