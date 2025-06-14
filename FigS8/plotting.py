@@ -65,6 +65,7 @@ Nexc = 10001
 Ncav = 283
 L = 0.04 * mm2au                                                            # box lenght
 dk = 2 * np.pi / L                                                          # k-space unit length
+dk0 = dk * (40 / (2 * np.pi))                                                # convert to micron^-1
 k_par = np.linspace(- (Nexc - 1) * dk / 2, (Nexc - 1) * dk / 2, Nexc)       # discretizing the whole band
 k_plot = np.linspace(- (Ncav - 1) * dk / 2, (Ncav - 1) * dk / 2, Ncav)      # discretizing the polaritons
 Omega_R = 0.12 / conv                                                       # value of \sqrt(N) gc
@@ -88,27 +89,27 @@ data2 = np.loadtxt("./18-6meV/band_struct.txt", dtype = float)
 # data3 = np.loadtxt("./36meV/band_struct_LP.txt", dtype = float)
 # data4 = np.loadtxt("./48meV/band_struct_LP.txt", dtype = float)
 
-plt.plot(k_par / dk, omega_LP(wc, k_par) * conv, '-', linewidth = lw, color = 'k', label = r"No Bath")
-plt.plot(datam[:, 0] / dk, datam[:, 1] * conv, '-', linewidth = lw, color = color00, label = r"$\omega_f$ = 3.1 meV")
-plt.plot(data0[:, 0] / dk, data0[:, 1] * conv, '-', linewidth = lw, color = color11, label = r"$\omega_f$ = 6.2 meV")
-plt.plot(data1[:, 0] / dk, data1[:, 1] * conv, '-', linewidth = lw, color = color22, label = r"$\omega_f$ = 12.4 meV")
-plt.plot(data2[:, 0] / dk, data2[:, 1] * conv, '-', linewidth = lw, color = color33, label = r"$\omega_f$ = 18.6 meV")
+plt.plot(k_par / dk0, omega_LP(wc, k_par) * conv, '-', linewidth = lw, color = 'k', label = r"No Bath")
+plt.plot(datam[:, 0] / dk0, datam[:, 1] * conv, '-', linewidth = lw, color = color00, label = r"$\omega_f$ = 3.1 meV")
+plt.plot(data0[:, 0] / dk0, data0[:, 1] * conv, '-', linewidth = lw, color = color11, label = r"$\omega_f$ = 6.2 meV")
+plt.plot(data1[:, 0] / dk0, data1[:, 1] * conv, '-', linewidth = lw, color = color22, label = r"$\omega_f$ = 12.4 meV")
+plt.plot(data2[:, 0] / dk0, data2[:, 1] * conv, '-', linewidth = lw, color = color33, label = r"$\omega_f$ = 18.6 meV")
 
-plt.plot(k_par / dk, omega_UP(wc, k_par) * conv, '-', linewidth = lw, color = 'k')
-plt.plot(datam[:, 0] / dk, datam[:, 2] * conv, '-', linewidth = lw, color = color00)
-plt.plot(data0[:, 0] / dk, data0[:, 2] * conv, '-', linewidth = lw, color = color11)
-plt.plot(data1[:, 0] / dk, data1[:, 2] * conv, '-', linewidth = lw, color = color22)
-plt.plot(data2[:, 0] / dk, data2[:, 2] * conv, '-', linewidth = lw, color = color33)
+plt.plot(k_par / dk0, omega_UP(wc, k_par) * conv, '-', linewidth = lw, color = 'k')
+plt.plot(datam[:, 0] / dk0, datam[:, 2] * conv, '-', linewidth = lw, color = color00)
+plt.plot(data0[:, 0] / dk0, data0[:, 2] * conv, '-', linewidth = lw, color = color11)
+plt.plot(data1[:, 0] / dk0, data1[:, 2] * conv, '-', linewidth = lw, color = color22)
+plt.plot(data2[:, 0] / dk0, data2[:, 2] * conv, '-', linewidth = lw, color = color33)
 
-plt.plot(k_par / dk, wk(wc, k_par) * conv, '--', linewidth = 2.0, color = 'k', alpha = .4)
+plt.plot(k_par / dk0, wk(wc, k_par) * conv, '--', linewidth = 2.0, color = 'k', alpha = .4)
 plt.hlines([1.96], -75, 75, linestyles= ['--'], linewidth = 2.0, color = 'k', alpha = .4)
 
 # ==============================================================================================
 
 # RHS y-axis
 ax = plt.gca()
-x_major_locator = MultipleLocator(25)
-x_minor_locator = MultipleLocator(5)
+x_major_locator = MultipleLocator(5)
+x_minor_locator = MultipleLocator(1)
 y_major_locator = MultipleLocator(0.1)
 y_minor_locator = MultipleLocator(0.02)
 ax.xaxis.set_major_locator(x_major_locator)
@@ -124,7 +125,7 @@ y1_label = ax.get_yticklabels()
 [y1_label_temp.set_fontname('Times New Roman') for y1_label_temp in y1_label]
 
 plt.tick_params(which = 'both', direction = 'in', labelsize = 30)
-plt.xlim(-75, 75)
+plt.xlim(-12, 12)
 plt.ylim(1.76, 2.2)
 
 # RHS y-axis
@@ -138,7 +139,7 @@ ax2.axes.yaxis.set_ticklabels([])
 plt.tick_params(which = 'both', direction = 'in')
 plt.ylim(1.76, 2.2)
 
-ax.set_xlabel(r'$k~(2\pi / L)$', size = 32)
+ax.set_xlabel(r'$k_\parallel$ ($\mu$m$^{-1}$)', size = 32)
 ax.set_ylabel(r'Energy $(\mathrm{eV})$', size = 32)
 # ax.legend(loc = 'upper center', frameon = False, prop = font_legends)
 
