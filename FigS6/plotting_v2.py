@@ -36,12 +36,13 @@ um_ps2au = (mm2au / 1000) / (1000 * fs2au)  # um / ps in a.u.
 
 L = 0.04 * mm2au                                                            # box lenght
 dk = 2 * np.pi / L                                                          # k-space unit length
+dk0 = dk * (40 / (2 * np.pi))                                                # convert to micron^-1
 
 # ==============================================================================================
 #                           Fig 2a 
 # ==============================================================================================
 
-x = np.loadtxt("kpar_lambda=12meV.txt", dtype = float) / dk
+x = np.loadtxt("kpar_lambda=12meV.txt", dtype = float) / dk0
 y = np.loadtxt("wc_lambda=12meV.txt", dtype = float) * conv
 z = np.loadtxt("vg_LP_lambda=12meV.txt", dtype = float).transpose() / um_ps2au
 
@@ -50,7 +51,7 @@ plt.pcolormesh(x, y, z, cmap = 'RdYlBu', shading = 'gouraud', vmin = z.min(), vm
 
 
 
-cbar = plt.colorbar(ticks = np.linspace(-6, 0, 7))
+cbar = plt.colorbar(ticks = np.linspace(-9, 0, 10))
 cbar.ax.tick_params(labelsize = 20, which = 'both', direction = 'out')
 cbar.ax.get_yaxis().labelpad = 20
 cbar.set_label(r'$\Delta v_{g,-}~(\mu \mathrm{m / ps})$', fontdict = font_legend)
@@ -58,10 +59,10 @@ cbar.set_label(r'$\Delta v_{g,-}~(\mu \mathrm{m / ps})$', fontdict = font_legend
 # ==============================================================================================
 # RHS y-axis
 ax = plt.gca()
-ax.plot([0, 40], [1.96, 1.96], '--', linewidth = lw, color = 'navy', label = 'Exciton')
-ax.text(18, 1.9, r'$\hbar \omega_0 = 1.96$ eV', fontsize = 24, color = 'navy')#, font = 'Helvetica') # 3
-x_major_locator = MultipleLocator(10)
-x_minor_locator = MultipleLocator(2)
+ax.plot([0, 7], [1.96, 1.96], '--', linewidth = lw, color = 'navy', label = 'Exciton')
+ax.text(3, 1.9, r'$\hbar \omega_0 = 1.96$ eV', fontsize = 24, color = 'navy')#, font = 'Helvetica') # 3
+x_major_locator = MultipleLocator(2)
+x_minor_locator = MultipleLocator(1)
 y_major_locator = MultipleLocator(0.1)
 y_minor_locator = MultipleLocator(0.05)
 ax.xaxis.set_major_locator(x_major_locator)
@@ -77,7 +78,7 @@ y1_label = ax.get_yticklabels()
 [y1_label_temp.set_fontname('Times New Roman') for y1_label_temp in y1_label]
 
 plt.tick_params(which = 'both', direction = 'in', labelsize = 30)
-plt.xlim(0, 40)
+plt.xlim(0, 7)
 plt.ylim(1.55, 2.1)
 
 # RHS y-axis
@@ -91,7 +92,7 @@ ax2.axes.yaxis.set_ticklabels([])
 plt.tick_params(which = 'both', direction = 'in')
 plt.ylim(1.55, 2.1)
 
-ax.set_xlabel(r'$k$ ($2\pi / L$)', size = 32)
+ax.set_xlabel(r'$k_\parallel$ ($\mu$m$^{-1}$)', size = 32)
 ax.set_ylabel(r'$\omega_\mathrm{c}$ (eV)', size = 32)
 # ax.legend()
 
