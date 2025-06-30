@@ -10,4 +10,4 @@ Added some supplementary figures in response to review comments.
 
 Update on 06/30/2025:
 
-Further updated some figures and data during the review process.
+Further updated some figures and data during the review process. The source code for Ehrenfest quantum dynamics simulations of the GHTC model for polariton transport can be found at https://github.com/benxkchng/Polariton-Transport-Ehrenfest
